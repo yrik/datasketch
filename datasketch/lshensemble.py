@@ -136,7 +136,7 @@ class MinHashLSHEnsemble(object):
                 )
             self.indexes.append(part_indexes)
             
-        self.lowers = [None for _ in self.indexes]
+        #self.lowers = [None for _ in self.indexes]
 
     def _init_optimal_params(self, weights):
         false_positive_weight, false_negative_weight = weights
@@ -190,7 +190,7 @@ class MinHashLSHEnsemble(object):
         for i, index in enumerate(self.indexes):
             if part_size*i >= len(entries):
                 continue
-            self.lowers[i] = entries[part_size*i][2]
+            #self.lowers[i] = entries[part_size*i][2]
             for r in index:
                 for key, minhash, size in entries[part_size*i:part_size*(i+1)]:
                     index[r].insert(key, minhash)
@@ -209,9 +209,9 @@ class MinHashLSHEnsemble(object):
             `iterator` of keys.
         '''
         for i, index in enumerate(self.indexes):
-            u = self.lowers[i]
-            if u is None:
-                continue
+            #u = self.lowers[i]
+            #if u is None:
+            #    continue
             b, r = self._get_optimal_param(u, size)
             for key in index[r]._query_b(minhash, b):
                 yield key
