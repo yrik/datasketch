@@ -126,7 +126,7 @@ class MinHashLSHEnsemble(object):
                 else:
                     adjusted_storage_config = storage_config.copy()
                 if 'basename' in adjusted_storage_config:
-                    adjusted_storage_config['basename'] += b'_' + b'_'.join([part_id, rs_id])
+                    adjusted_storage_config['basename'] += b'_' + bytes(part_id) + b'_' + bytes(rs_id)
                     
                 part_indexes[r] = MinHashLSH(
                     num_perm=self.h,
