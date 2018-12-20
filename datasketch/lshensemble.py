@@ -121,9 +121,13 @@ class MinHashLSHEnsemble(object):
         for part_id in range(0, num_part):
             part_indexes = {}
             for rs_id, r in enumerate(rs):
-                adjusted_storage_config = storage_config.copy()
+                if storage_config is None:
+                    adjusted_storage_config = {}
+                else:
+                    adjusted_storage_config = storage_config.copy()
                 if 'basename' in adjusted_storage_config:
                     adjusted_storage_config['basename'] += "_%s_%s" % (part_id, rs_id)
+                    
                 part_indexes[r] = MinHashLSH(
                     num_perm=self.h,
                     params=(int(self.h/r), r),
